@@ -2,7 +2,6 @@ import pygame as pg
 
 from exception import NegativeSpeedException, NonExistDirectionException
 from utils.keyboard import KeyBoard
-from surface.base import BaseSurface
 
 LEFT = 0
 UP = 1
@@ -11,12 +10,10 @@ DOWN = 3
 
 
 class BaseObject:
-    __surface: BaseSurface
     __x: float
     __y: float
 
-    def __init__(self, surface: BaseSurface, x: float, y: float):
-        self.__surface = surface
+    def __init__(self, x: float, y: float):
         self.__x = x
         self.__y = y
 
@@ -36,16 +33,39 @@ class BaseObject:
     def y(self, y: float):
         self.__y = y
 
-    def get_surface(self) -> BaseSurface:
-        return self.__surface
+
+class BaseSizeObject(BaseObject):
+    __width: int
+    __height: int
+
+    def __init__(self, x: float, y: float, width: int, height: int):
+        super().__init__(x, y)
+        self.__width = width
+        self.__height = height
+
+    @property
+    def width(self) -> int:
+        return self.__width
+
+    @width.setter
+    def width(self, width: int):
+        self.__width = width
+
+    @property
+    def height(self) -> int:
+        return self.__height
+
+    @height.setter
+    def height(self, height: int):
+        self.__height = height
 
 
-class MovingObject(BaseObject):
+class MovingObject(BaseSizeObject):
     __direction: int
     __speed: float
 
-    def __init__(self, surface: BaseSurface, x: float, y: float, speed: float = 0, direction: int = RIGHT):
-        super().__init__(surface, x, y)
+    def __init__(self, x: float, y: float, width: int, height: int, speed: float = 0, direction: int = RIGHT):
+        super().__init__(x, y, width, height)
         self.__speed = speed
         self.__direction = direction
 
@@ -75,9 +95,9 @@ class MovingObject(BaseObject):
 class ManagingObject(MovingObject):
     __manager_direction: int
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.__manager_direction = self.direction
+    def __init__(self, x: float, y: float, width: int, height: int, speed: float = 0, direction: int = RIGHT):
+        super().__init__(x, y, width, height, speed, direction)
+        self.__manager_direction = direction
 
     def init_direction_from_manager(self, keyboard: KeyBoard):
         direction = self.__get_direction_from_keyboard(keyboard)

@@ -1,6 +1,6 @@
 import pygame as pg
 
-from surface.base import MixinSurface
+from surface.base import MixinDrawingSurace
 
 
 class WindowBaseConfig:
@@ -9,21 +9,22 @@ class WindowBaseConfig:
 
 class WindowConfig(WindowBaseConfig):
     label = "PacMan"
-    width = 700
-    height = 700
+    width = 608
+    height = 650
 
 
-class Window(MixinSurface):
+class Window(MixinDrawingSurace):
     __config: WindowBaseConfig
 
     def __init__(self):
         self.__config = WindowConfig()
-
+        
         pg.init()
         pg.display.set_caption(self.__config.label)
-        self.set_body(self.self.__create_window(self.__config.width, self.__config.height))
+        self.body = self.__create_window(self.__config.width, self.__config.height)
 
-    def update(self):
+    @staticmethod
+    def update():
         pg.display.update()
 
     @staticmethod

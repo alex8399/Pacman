@@ -1,11 +1,19 @@
 import pygame as pg
 
+from surface.base import MixinSurface
 
-class Image:
-    __body: pg.surface.Surface
+
+class Image(MixinSurface):
+    __path: str
 
     def __init__(self, image_path: str):
-        self.__body = pg.image.load(image_path)
+        self.__path = image_path
+        self.body = self.__load_image(image_path)
 
-    def get_image(self) -> pg.surface.Surface:
-        return self.__body
+    @staticmethod
+    def __load_image(image_path: str) -> pg.Surface:
+        return pg.image.load(image_path)
+
+    @property
+    def path(self) -> str:
+        return self.__path

@@ -1,13 +1,13 @@
 import pygame as pg
 
-from surface.map import TestMap
 from exception import ExitException
 from utils.window import Window
 from utils.clock import Clock
-from utils.event_handler import Event, EventHandler
+from utils.eventhandler import Event, EventHandler
 from utils.keyboard import KeyBoard
 
 from object.pacman import Pacman
+from surface.map import Map
 
 
 class LevelBaseConfig:
@@ -61,19 +61,18 @@ class BaseLevel:
         self.event_handler.update()
         self.keyboard.update()
     
-    def draw(self):
-        self.window.update()
 
-class Level01(BaseLevel):
+class Level(BaseLevel):
 
     def __init__(self, window : Window, clock : Clock):
         super().__init__(window, clock, LevelConfig())
 
-    def draw(self):
-        super().draw()
         
     def exec(self):
         run = True
+        
+        pacman = Pacman(100, 100)
+        map = Map(0, 42)
         
         while run:
             self.update_environment()
@@ -82,6 +81,7 @@ class Level01(BaseLevel):
                 if event.is_exit():
                     self.exit()
             
-            print(1)
-
-            self.draw()
+            map.draw(map)
+            pacman.draw(map)
+            self.window.blit(map, (0, 42))
+            self.window.update()

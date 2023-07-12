@@ -12,7 +12,7 @@ class KeyBoard:
 
     @staticmethod
     def __init_keys() -> list:
-        return pg.keys.get_pressed()
+        return pg.key.get_pressed()
 
     def is_right_key(self) -> bool:
         return self.__keys[pg.K_RIGHT]
