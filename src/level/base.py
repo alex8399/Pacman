@@ -5,17 +5,7 @@ from utils.window import Window
 from utils.clock import Clock
 from utils.eventhandler import Event, EventHandler
 from utils.keyboard import KeyBoard
-
-from object.pacman import Pacman
-from surface.map import Map
-
-
-class LevelBaseConfig:
-    pass
-
-
-class LevelConfig(LevelBaseConfig):
-    ftp: int = 60
+from level.config import LevelBaseConfig
 
 
 class BaseLevel:
@@ -55,33 +45,8 @@ class BaseLevel:
     @property
     def keyboard(self) -> KeyBoard:
         return self.__keyboard
-    
+
     def update_environment(self):
         self.clock.tick(self.config.ftp)
         self.event_handler.update()
         self.keyboard.update()
-    
-
-class Level(BaseLevel):
-
-    def __init__(self, window : Window, clock : Clock):
-        super().__init__(window, clock, LevelConfig())
-
-        
-    def exec(self):
-        run = True
-        
-        pacman = Pacman(100, 100)
-        map = Map(0, 42)
-        
-        while run:
-            self.update_environment()
-
-            for event in self.event_handler.get_events():
-                if event.is_exit():
-                    self.exit()
-            
-            map.draw(map)
-            pacman.draw(map)
-            self.window.blit(map, (0, 42))
-            self.window.update()

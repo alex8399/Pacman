@@ -43,12 +43,12 @@ class BaseSurface(MixinDrawingSurace):
     __width: int
     __height: int
 
-    def __init__(self, x: int, y: int, width: int, height: int):
-        self.__x = x
-        self.__y = y
-        self.__width = width
-        self.__height = height
-        self.body = self.__create_surface(width, height)
+    def __init__(self, **kwargs):
+        self.__x = kwargs.get("x")
+        self.__y = kwargs.get("y")
+        self.__width = kwargs.get("width")
+        self.__height = kwargs.get("height")
+        self.body = self.__create_surface(self.__width, self.__height)
 
     @staticmethod
     def __create_surface(width:  int, height: int) -> pg.Surface:
@@ -69,3 +69,6 @@ class BaseSurface(MixinDrawingSurace):
     @property
     def height(self) -> int:
         return self.__height
+    
+    def build(self, surface : MixinSurface):
+        surface.blit(self, (self.x, self.y))

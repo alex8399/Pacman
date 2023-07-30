@@ -15,3 +15,7 @@ class NonExistDirectionException(BaseException):
 class NegativeSpeedException(BaseException):
     '''Raise when negative speed is indicated'''
     pass
+
+class ObjectInWallException(BaseException):
+    '''Object in the wall and can not continue to move'''
+    pass

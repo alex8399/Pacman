@@ -1,14 +1,14 @@
-from object.base import ManagingObject
+from object.moving import ManagingObject
 from surface.base import BaseSurface
 
 class Pacman(ManagingObject):
     __color : tuple = (238, 210, 75)
     
-    def __init__(self, x : float, y : float):
-        super().__init__(x, y, 30, 30)
+    def __init__(self):
+        super().__init__(x = 0, y = 0, height = 28, width = 28, speed = 3)
     
     def draw(self, surface : BaseSurface):
-        x = int(self.x) - self.height // 2
-        y = int(self.y) - self.height // 2
+        x = int(self.x)
+        y = int(self.y)
         radious = self.height // 2
         surface.draw_circle(self.__color, (x, y), radious)

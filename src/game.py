@@ -1,10 +1,11 @@
 import pygame as pg
 from sys import exit as exit
 
-from level import BaseLevel, Level
 from utils.window import Window
 from exception import ExitException
 from utils.clock import Clock
+from level.base import BaseLevel
+from level.level_01 import Level01
 
 
 class BaseGame:
@@ -31,7 +32,7 @@ class BaseGame:
 class Game(BaseGame):
 
     def exec(self):
-        level = Level(self.window, self.clock)
+        level = Level01(self.window, self.clock)
 
         try:
             level.exec()
