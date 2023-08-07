@@ -1,7 +1,11 @@
 import pygame as pg
 
 
-class KeyBoard:
+class Device:
+    pass
+
+
+class KeyBoard(Device):
     __keys: list
 
     def __init__(self):

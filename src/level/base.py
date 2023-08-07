@@ -4,7 +4,7 @@ from exception import ExitException
 from utils.window import Window
 from utils.clock import Clock
 from utils.eventhandler import Event, EventHandler
-from utils.keyboard import KeyBoard
+from utils.IOdevice import KeyBoard
 from level.config import LevelBaseConfig
 
 

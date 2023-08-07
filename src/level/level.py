@@ -7,7 +7,7 @@ from object.pacman import Pacman
 from surface.map import Map
 
 
-class Level01(BaseLevel):
+class Level(BaseLevel):
     
     def __init__(self, window: Window, clock: Clock):
         super().__init__(window, clock, LevelConfig())
@@ -15,9 +15,9 @@ class Level01(BaseLevel):
     def exec(self):
         run = True
 
-        map = Map(x=0, y=32)
-        pacman = Pacman()
-        map.set_object(pacman, 1, 1)
+        map = Map(x=0, y=0)
+        pacman = Pacman(user_device=self.keyboard)
+        map.set_object(pacman, 4, 9)
         
 
         while run:
@@ -27,12 +27,11 @@ class Level01(BaseLevel):
                 if event.is_exit():
                     self.exit()
             
-            
-            pacman.init_user_direction(self.keyboard)
+            pacman.init_user_direction()
             pacman.move(map)
-
+            
             map.draw(map)
             pacman.draw(map)
-
-            map.build(self.window)
+            map.blit_all(self.window)
+            
             self.window.update()

@@ -70,5 +70,5 @@ class BaseSurface(MixinDrawingSurace):
     def height(self) -> int:
         return self.__height
     
-    def build(self, surface : MixinSurface):
-        surface.blit(self, (self.x, self.y))
+    def blit_all(self, surface : MixinSurface):
+        surface.blit(self, (self.__x, self.__y))
