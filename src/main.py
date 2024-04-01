@@ -1,5 +1,5 @@
-from game import play_game
-
+from src.pacman.game import Game
 
 if __name__ == "__main__":
-    play_game()
+    game = Game()
+    game.exec()
