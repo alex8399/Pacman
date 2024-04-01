@@ -1,5 +1,4 @@
 import pygame as pg
-from collections.abc import Sequence
 from abc import ABC, abstractmethod
 
 from src.engine.utils.window import Window
@@ -10,8 +9,6 @@ from src.engine.exceptions import ExitException
 class BaseGame(ABC):
     """
     Abstract base game class.
-
-    Function exec must be defined.
     """
 
     __window: Window
@@ -28,6 +25,11 @@ class BaseGame(ABC):
         self.__window = Window(width, height)
         self.__clock = Clock()
         self.__label = label
+        
+    @abstractmethod
+    def exec(self) -> None:
+        """Execute game"""
+        pass
         
     @staticmethod
     def exit() -> None:
