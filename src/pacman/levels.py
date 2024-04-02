@@ -11,7 +11,7 @@ from src.pacman.surfaces.map import GameMap
 
 class Level(BaseLevel):
     """
-    Level goes according to standart plot of pacman game.
+    Level goes according to standart plot of Pacman game.
     The main goal of Pacman is to collect all coins and avoid ghosts.
     """
 

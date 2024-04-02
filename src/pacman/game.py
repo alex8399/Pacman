@@ -18,7 +18,7 @@ class Game(BaseGame):
         super().__init__(self.__WIDTH, self.__HEIGHT, self.__LABEL)
 
     def exec(self) -> None:
-        level = Level(self)
+        level = Level(self.get_clock(), self.get_window())
         
         try:
             level.exec()
