@@ -21,13 +21,11 @@ class BaseLevel(ABC):
 
     __run: bool
 
-    def __init__(self, game) -> None:
-        self.__clock = game.get_clock()
-        self.__window = game.get_window()
-
+    def __init__(self, clock: Clock, window: Window) -> None:
+        self.__clock = clock
+        self.__window = window
         self.__event_handler = EventHandler()
         self.__keyboard = KeyBoard()
-
         self.__run = True
 
     def exec(self) -> None:
@@ -46,10 +44,12 @@ class BaseLevel(ABC):
         pass
 
     def pre_update_environment(self) -> None:
-        """Update enviroment before executing main body:
+        """
+        Update environment before executing body:
             - ticking clock,
             - uploading new events in event handler,
-            - updating state of keyboard."""
+            - updating state of keyboard.
+        """
 
         self.__clock.update()
         self.__event_handler.update()
@@ -57,17 +57,19 @@ class BaseLevel(ABC):
 
     @abstractmethod
     def exec_body(self) -> None:
-        "Execute game body."
+        """Execute level body."""
         pass
 
 
     def render(self) -> None:
-        "Render level objects."
+        """Render level objects."""
         pass
 
     def post_update_environment(self) -> None:
-        """Update environment after executin main body:
-            - redrawing window."""
+        """
+        Update environment after execution main body:
+            - redrawing window.
+        """
         self.__window.update()
     
     def get_clock(self) -> Clock:
@@ -82,8 +84,7 @@ class BaseLevel(ABC):
     def get_keyboard(self) -> KeyBoard:
         return self.__keyboard
 
-    @staticmethod
-    def exit() -> None:
+    def exit(self) -> None:
         raise ExitException
 
     def stop(self):
